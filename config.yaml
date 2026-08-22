@@ -1,0 +1,48 @@
+model:
+  pretrained_model_path: "Qwen2.5-3B"
+  device: "cuda"
+  dtype: "bfloat16"
+
+data:
+  root_path: "hendrycks-MATH-benchmark/data"
+  train_file: "train-00000-of-00001.parquet"
+  test_file: "test-00000-of-00001.parquet"
+  test_size: 500
+  train_samples: 12000
+
+training:
+  epochs: 1
+  random_seed: 1337
+  max_prompt_len: 256
+  max_gen_len: 1024
+  batch_size: 256
+  num_questions_per_batch: 16
+  # Number of examples per gradient accumulation step
+  micro_batch_size: 2
+  mini_batch_size: 64
+  ppo_epochs: 2
+  clip_eps: 0.2
+  max_grad_norm: 1.0
+  learning_rate: 5.0e-6
+  weight_decay: 0.0
+  betas: [0.9, 0.999]
+  ckpt_dir: "ckpt/datpo"
+  log_dir: "logs/datpo"
+  skip_unfinished_episodes: false
+  ckpt_save_interval: 100
+  eval_interval: 40
+  memory_efficient_adamw: false
+datpo:
+  enabled: true
+  adv_normalization: false
+  embedding_model: "Alibaba-NLP/gte-large-en-v1.5"
+  root_rollouts: 4
+  adaptive: true
+  er_max: 1
+  bp_max: 3
+  bn_max: 4
+  divergence_alpha: 0.2
+  divergence_alpha_min: 0.0
+  fork_selection: "sent-entropy"
+  one_step_off_policy: false
+  entropy_smoothing: 0.0001
