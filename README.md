@@ -20,47 +20,40 @@ At a glance, DATPO provides:
 
 The policy is optimized with a block-level clipped policy-gradient objective over the generated tree. Each block uses the augmented advantage
 
-```math
+$$
 \hat{A}(b)
 =
 \hat{A}_{\mathrm{base}}(b)
 +
 \mathbb{I}\!\left(\hat{A}_{\mathrm{base}}(b) > 0\right)
-\cdot
-\alpha
-\cdot
-\mathrm{Div}_{\mathrm{sib}}(b),
-```
+\cdot \alpha
+\cdot \mathrm{Div}_{\mathrm{sib}}(b),
+$$
 
 where $\mathrm{Div}_{\mathrm{sib}}(b)$ measures the semantic distance from sibling blocks and $\alpha$ is annealed during training.
 
 The corresponding DATPO objective is
 
-```math
+$$
 \begin{aligned}
 \mathcal{J}_{\mathrm{DATPO}}(\theta)
 &=
-\mathbb{E}_{q \sim \mathcal{Q},\,
-\mathcal{B} \sim \pi_{\theta_{\mathrm{old}}}}
-\Bigg[
+\mathbb{E}_{q \sim \mathcal{Q},\, \mathcal{B} \sim \pi_{\theta_{\mathrm{old}}}}
+\left[
 \frac{1}{\sum_{b \in \mathcal{B}} |b|}
 \sum_{b \in \mathcal{B}}
 \sum_{t=1}^{|b|}
-\\
-&\qquad
-\min\Big(
+\min\left(
 \rho_{b,t}(\theta)\hat{A}(b),
-\operatorname{clip}
-\big(
+\mathrm{clip}\left(
 \rho_{b,t}(\theta),
 1-\epsilon,
 1+\epsilon
-\big)
-\hat{A}(b)
-\Big)
-\Bigg].
+\right)\hat{A}(b)
+\right)
+\right].
 \end{aligned}
-```
+$$
 
 ## 🚀 Quick Start
 
