@@ -1,5 +1,7 @@
 # DATPO: Difficulty-Adaptive Sentence-Entropy-guided Tree-structured Policy Optimization
 
+📄 [**Paper**](https://arxiv.org/abs/2609.08650)
+
 ![DATPO method overview](figure/method.png)
 
 ## 📰 News
